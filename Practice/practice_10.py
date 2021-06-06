@@ -15,13 +15,17 @@ cv2.createTrackbar("sat max", "Trackbars", 255, 255, empty)
 cv2.createTrackbar("val min", "Trackbars", 92, 255, empty)
 cv2.createTrackbar("val max", "Trackbars", 255, 255, empty)
 
-
-img = cv2.imread("Resources/RGB-FLAG.png")
-imgNew = cv2.resize(img, (450, 450))
-
-imgHSV = cv2.cvtColor(imgNew, cv2.COLOR_BGR2HSV)
+cap = cv2.VideoCapture(0)
+cap.set(3,640)
+cap.set(4, 480)
 
 while True:
+
+    success, img = cap.read()
+    img = cv2.flip(img, 1)
+
+    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
     hMin = cv2.getTrackbarPos("hue min", "Trackbars")
     hMax = cv2.getTrackbarPos("hue max", "Trackbars")
     sMin = cv2.getTrackbarPos("sat min", "Trackbars")
@@ -32,7 +36,7 @@ while True:
     upper = np.array([hMax, sMax, vMax])
     mask = cv2.inRange(imgHSV,lower,upper)
 
-    finalImg = cv2.bitwise_and(imgNew, imgNew, mask=mask)
+    finalImg = cv2.bitwise_and(img, img, mask=mask)
     cv2.imshow("MASK", finalImg)
 
 
