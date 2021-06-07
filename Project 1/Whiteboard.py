@@ -43,7 +43,7 @@ def findColor(img, color, colorOutput):
 
         cv2.circle(img, (x + w//2, y + h //2), 10, (colorOutput[i][0], colorOutput[i][1], colorOutput[i][2]), cv2.FILLED)
         drawings.append([x + w//2, y + h//2, colorOutput[i][0], colorOutput[i][1], colorOutput[i][2]])
-        cv2.imshow(str(i), mask)
+        #cv2.imshow(str(i), mask)
 
 
 
