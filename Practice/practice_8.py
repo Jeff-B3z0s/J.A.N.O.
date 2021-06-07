@@ -16,7 +16,7 @@ cv2.createTrackbar("val min", "Trackbars", 92, 255, empty)
 cv2.createTrackbar("val max", "Trackbars", 255, 255, empty)
 
 
-img = cv2.imread("Resources/gotham.jpg")
+img = cv2.imread("Resources/RGB-FLAG.png")
 imgNew = cv2.resize(img, (450, 450))
 
 imgHSV = cv2.cvtColor(imgNew, cv2.COLOR_BGR2HSV)
