@@ -1,13 +1,17 @@
 # Setup Python -----------------------------------------------#
-
+from gtts import gTTS
 import sys, os, math, time
 import cv2
 import pygame as pg
 import numpy as np
 from pygame.locals import *
+
 pg.init()
 pg.font.init()
 clock = pg.time.Clock()
+
+sys.path.insert(1, 'Assets/Modules')
+import button
 
 
 # Setup pygame/ Window ---------------------------------------#
@@ -24,21 +28,19 @@ textRect = text.get_rect()
 textRect.center = (WINDOW_SIZE[0] - 820 + 820//2, 50)
 
 # TEXT -------------------------------------------------------#
-home = font.render('Home', True, "#FFFFFF")
-wb = font.render('Whiteboard', True, "#424B5C")
-schedule = font.render('Schedule', True, "#424B5C")
-assistant = font.render('Assistant', True, "#424B5C")
-config = font.render('Config', True, "#424B5C")
-notes = font.render('Notes', True, "#424B5C")
 
-buttons = [home, wb, schedule, assistant, config, notes]
 
-homeRect = home.get_rect()
-wbRect = home.get_rect()
-sRect = home.get_rect()
-aRect = home.get_rect()
-cRect = config.get_rect()
-nRect = notes.get_rect()
+HomeBtn, WBtn, ScheduleBtn, AssistantBtn, ConfigBtn, NotesBtn = 0, 0, 0, 0, 0, 0
+texts = ["Home", "Whiteboard", "Schedule", "Assistant", "Config", "Notes"]
+buttons = [HomeBtn, WBtn, ScheduleBtn, AssistantBtn, ConfigBtn, NotesBtn]
+yCords = [110, 170, 230, 290, 410, 470]
+chosen = [True, False, False, False, False, False]
+
+for i in range(len(texts)):
+    buttons[i] = button.Button(texts[i], 85, yCords[i], "#424B5C", font, chosen[i])
+
+
+
 
 jefe = font.render('Jefe', True, "#424B5C")
 jefeRect = jefe.get_rect()
@@ -73,10 +75,14 @@ janoImg = pg.transform.smoothscale(janoImg, (37, 48))
 configImg = pg.transform.smoothscale(configImg, (41, 43))
 notesImg = pg.transform.smoothscale(notesImg, (46, 59))
 
+
+# MISC VARIABLES
+cursor = "pointer"
+
 # MENU LOOP --------------------------------------------------#
 def menu(screen):
+    cursor = "pointer"
     while True:
-        pg.mouse.set_cursor(*pg.cursors.arrow)
 
         # DISPLAY --------------------------------------------#
         screen.fill("#131217")
@@ -88,23 +94,16 @@ def menu(screen):
         screen.blit(text, textRect)
 
         # TEXT AND ICON
-        textX = 85
-        screen.blit(home, (textX,110))
+
+        for btn in buttons:
+            btn.show(screen)
+            btn.hover(pg.mouse.get_pos(), cursor)
+
         screen.blit(homeImg, (20, 100))
-
-        screen.blit(wb, (textX, 170))
         screen.blit(whiteImg, (15, 165))
-
-        screen.blit(schedule, (textX, 230))
         screen.blit(calanderImg, (15, 225))
-
-        screen.blit(assistant, (textX, 290))
         screen.blit(janoImg, (20, 285))
-
-        screen.blit(config, (textX, 410))
         screen.blit(configImg, (23, 400))
-
-        screen.blit(notes, (textX, 470))
         screen.blit(notesImg, (20, 455))
 
         # DIVISION LINES
@@ -118,6 +117,19 @@ def menu(screen):
         screen.blit(shamrock, shamRect)
         screen.blit(powerBtn, powerRect)
 
+
+        # CURSOR FUNCTIONS
+        if shamRect.collidepoint(pg.mouse.get_pos()) == 1:
+            cursor = "diamond"
+        else:
+            cursor = "pointer"
+
+        if cursor == "diamond":
+            pg.mouse.set_cursor(*pg.cursors.diamond)
+        elif cursor == "pointer":
+            pg.mouse.set_cursor(*pg.cursors.arrow)
+        else:
+            pg.mouse.set_cursor(*pg.cursors.arrow)
 
 
         # EVENT LOOP -----------------------------------------#
