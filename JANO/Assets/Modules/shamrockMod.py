@@ -1,12 +1,16 @@
 from gtts import gTTS
 import sys, os, math, time
 import cv2
+import trainingModel
 import pygame as pg
 import numpy as np
 from pygame.locals import *
 import playsound
 import speech_recognition as sr
 from gtts import gTTS
+from user import User
+import nltk
+from nltk.stem.porter import PorterStemmer
 
 pg.init()
 pg.font.init()
@@ -20,9 +24,10 @@ def turnOff(box):
 
 def speak(text):
     tts = gTTS(text = text, lang = "en")
-    filename = "Speech Output/voice.mp3"
+    filename = f'Speech Output/voice.mp3'
     tts.save(filename)
     playsound.playsound(filename)
+    os.remove(filename)
 
 
 def get_audio():
@@ -84,7 +89,30 @@ class textBox():
                 speak("Hi!")
                 self.text = "Hi!"
                 self.display = self.font.render(self.text, True, self.tColor)
+            else:
+                trainingModel.process(input)
+
 
             self.circleColor = self.circleDefault
             pg.display.update()
 
+
+def startProgram(user):
+    speak("Welcome to the program.")
+    name = "unknown"
+    while True:
+        speak("What is your name?")
+        input = get_audio()
+        speak(f'Is your name {input}? Please answer strictly with a yes or no. Im not that smart.')
+        ans = get_audio()
+        if ans.lower() == "yes":
+            speak('nice.')
+            name = input.lower()
+            break
+        elif ans.lower() == "no":
+            speak('oh, let us try again')
+        else:
+            speak("sorry, I didn't quite get that. I'm kind of a really dumb program.")
+
+    speak(f"welcome to Jano, {name}")
+    return name

@@ -68,7 +68,6 @@ num_epochs = 1000
 dataset = ChatDataset()
 trainLoader = DataLoader(dataset= dataset, batch_size=batch_size, shuffle=True, num_workers=1)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = neuralNet(input_size, hidden_size, output_size)
 
 criterion = nn.CrossEntropyLoss()
@@ -76,8 +75,6 @@ optimizer = torch.optim.Adam(model.parameters(), lr = learning_rate)
 
 for epoch in range(num_epochs):
         for (words, labels) in trainLoader:
-            words = words.to(device)
-            labels = labels.to(device)
 
             outputs = model(words)
             loss = criterion (outputs, labels)

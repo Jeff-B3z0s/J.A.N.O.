@@ -17,6 +17,7 @@ sys.path.insert(1, 'Assets/Modules')
 
 import button
 import shamrockMod
+from user import User
 
 
 # Setup pygame/ Window ---------------------------------------#
@@ -36,13 +37,13 @@ textRect.center = (WINDOW_SIZE[0] - 820 + 820//2, 50)
 
 
 HomeBtn, WBtn, ScheduleBtn, AssistantBtn, ConfigBtn, NotesBtn = 0, 0, 0, 0, 0, 0
-texts = ["Home", "Whiteboard", "Schedule", "Assistant", "Config", "Notes"]
+texts = ["Home", "Whiteboard", "Schedule", "Assistant Cmds", "Config", "Notes"]
 buttons = [HomeBtn, WBtn, ScheduleBtn, AssistantBtn, ConfigBtn, NotesBtn]
 yCords = [110, 170, 230, 290, 410, 470]
 chosen = [True, False, False, False, False, False]
 
 for i in range(len(texts)):
-    buttons[i] = button.Button(texts[i], 85, yCords[i], "#424B5C", font, chosen[i])
+    buttons[i] = button.Button(texts[i], 80, yCords[i], "#424B5C", font, chosen[i])
 
 
 
@@ -57,7 +58,7 @@ jefeRect.center = (140, 770)
 #pg.draw.circle(screen, (0, 0, 0), (WINDOW_SIZE[0] - 820 + 55, 750), 20, 0)
 textBox = shamrockMod.textBox("...", WINDOW_SIZE[0] - 820 + 30, 725, 760, 50, "#FFFFFF", "#212027", font)
 textBox.update(screen)
-print(textBox.circle)
+
 
 # ASSETS -----------------------------------------------------#
 
@@ -95,10 +96,12 @@ global cursor
 cursor = "pointer"
 shamrockOn = False
 
+
 # MENU LOOP ---------------------------------------------------#
 def menu(screen):
     shamrockOn = False
     cursor = "pointer"
+    user = 0
     while True:
 
         # DISPLAY ---------------------------------------------#
@@ -175,6 +178,9 @@ def menu(screen):
                         shamrockMod.turnOn(textBox)
                         textBox.circleDefault = (100, 255, 100)
                         shamrockOn = True
+                        #if user == 0:
+                        #    user = shamrockMod.startProgram(user)
+
                     else:
                         shamrockMod.turnOff(textBox)
                         textBox.circleDefault = (0, 0, 0)
