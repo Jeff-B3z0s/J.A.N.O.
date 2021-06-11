@@ -17,6 +17,8 @@ class Button:
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.highlighted = False
+
 
     def show(self, screen):
         screen.blit(self.display, (self.x, self.y))
@@ -27,11 +29,17 @@ class Button:
         if self.rect.collidepoint(mousePos) == 1:
             self.color = "#FFFFFF"
             cursor = "diamond"
+            self.highlighted = True
         else:
             self.color = "#424B5C"
             cursor = "pointer"
+            self.highlighted = False
         if self.chosen == True:
             self.color = "#00FFFF"
 
         self.display = self.font.render(self.text, True, self.color)
         cursor = "diamond"
+
+    def click(self):
+        if self.highlighted == True:
+            print(self.text)
