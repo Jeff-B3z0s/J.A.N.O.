@@ -190,8 +190,6 @@ def menu(screen):
                     textBox.click(pg.mouse.get_pos())
 
 
-
-
             elif event.type == VIDEORESIZE:
                 width, height = event.size
                 if width < 400:

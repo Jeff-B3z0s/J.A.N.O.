@@ -1,11 +1,19 @@
 {
   "intents": [
     {
+      "tag": "question greeting",
+      "patterns": [
+        "How are you doing?"
+      ],
+      "responses": [
+        "I'm doing good"
+      ]
+    },
+    {
       "tag": "greeting",
       "patterns": [
         "Hi",
         "Hey",
-        "How are you",
         "Is anyone there?",
         "Hello",
         "Good day"
@@ -14,12 +22,13 @@
         "Hey :-)",
         "Hello, thanks for visiting",
         "Hi there, what can I do for you?",
-        "Hi there, how can I help?"
+        "Hi there, how can I help?",
+        "How's it going?"
       ]
     },
     {
       "tag": "goodbye",
-      "patterns": ["Bye", "See you later", "Goodbye"],
+      "patterns": ["Bye", "See you later", "Goodbye", "Bye bye!"],
       "responses": [
         "See you later, thanks for visiting",
         "Have a nice day",

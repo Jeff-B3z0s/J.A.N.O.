@@ -90,7 +90,12 @@ class textBox():
                 self.text = "Hi!"
                 self.display = self.font.render(self.text, True, self.tColor)
             else:
-                trainingModel.process(input)
+                inp = trainingModel.process(input)
+                output, tag = trainingModel.respond(inp, trainingModel.intents)
+                speak(tag)
+                speak(output)
+                self.text = output
+                self.display = self.font.render(self.text, True, self.tColor)
 
 
             self.circleColor = self.circleDefault
