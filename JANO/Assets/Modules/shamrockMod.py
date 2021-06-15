@@ -8,9 +8,14 @@ from pygame.locals import *
 import playsound
 import speech_recognition as sr
 from gtts import gTTS
+
 from user import User
 import nltk
 from nltk.stem.porter import PorterStemmer
+
+sys.path.insert(1, 'Assets/Modules')
+
+import Textbot
 
 pg.init()
 pg.font.init()
@@ -89,7 +94,10 @@ class textBox():
                 speak("Hi!")
                 self.text = "Hi!"
                 self.display = self.font.render(self.text, True, self.tColor)
+            elif input == "commands":
+                Textbot.Assistant()
             else:
+                speak(input)
                 inp = trainingModel.process(input)
                 output, tag = trainingModel.respond(inp, trainingModel.intents)
                 speak(tag)
@@ -108,7 +116,7 @@ def startProgram(user):
     while True:
         speak("What is your name?")
         input = get_audio()
-        speak(f'Is your name {input}? Please answer strictly with a yes or no. Im not that smart.')
+        speak(f'Is your name {input}? Please answer strictly with a yes or no.')
         ans = get_audio()
         if ans.lower() == "yes":
             speak('nice.')
@@ -117,7 +125,7 @@ def startProgram(user):
         elif ans.lower() == "no":
             speak('oh, let us try again')
         else:
-            speak("sorry, I didn't quite get that. I'm kind of a really dumb program.")
+            speak("sorry, I didn't quite get that.")
 
-    speak(f"welcome to Jano, {name}")
+    speak(f"welcome to Jano, {name}. Please go to the instructions page to figure out what you can ask me.")
     return name

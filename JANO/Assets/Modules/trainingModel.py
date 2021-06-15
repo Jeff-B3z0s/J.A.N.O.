@@ -55,7 +55,7 @@ def process(inp):
     return input
 
 def remove_duplicates(arr):
-    indicies = []
+
     dupList = []
     for i in range(len(arr)):
         if arr[i] in dupList:
@@ -69,6 +69,7 @@ def remove_duplicates(arr):
 
 # ------------------------------------------------------- #
 def respond(inp, intents):
+
     #print(inp)
     #print(intents)
     #print(intents['intents'][0])
@@ -120,10 +121,6 @@ def respond(inp, intents):
 
 
 
-text = "tell me a joke!"
-processed_text = process(text)
-print(processed_text)
-output = respond(processed_text, intents)
 #print(output)
 
 
