@@ -42,4 +42,7 @@ class Button:
 
     def click(self):
         if self.highlighted == True:
-            print(self.text)
+            #print(self.text)
+            return self.text
+        else:
+            return "0_0"
