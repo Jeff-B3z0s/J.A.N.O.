@@ -13,7 +13,7 @@ with open('Assets/Modules/data.json', 'r') as f:
 #with open('data.json', 'r') as f:
     #intents = json.load(f)
 
-ignoreList = ["?", ".", ",", "!"]
+ignoreList = ["?", ".", ",", "!", "a", "the", "and"]
 
 
 def tokenize(inp):
@@ -70,16 +70,12 @@ def remove_duplicates(arr):
 # ------------------------------------------------------- #
 def respond(inp, intents):
 
-    #print(inp)
-    #print(intents)
-    #print(intents['intents'][0])
-    probabilities = []
 
+    probabilities = []
+    print(inp)
     for i in range(len(intents['intents'])):
 
-        #print('------------:')
 
-        #print(intents['intents'][i]['tag'])
         all_words = []
         for j in range(len(intents['intents'][i]['patterns'])):
             processed_phrase = process(intents['intents'][i]['patterns'][j])
@@ -94,33 +90,72 @@ def respond(inp, intents):
                 output_array.append(1)
             else:
                 output_array.append(0)
-        #print(output_array)
+
         prob = 0
         for j in range(len(output_array)):
             if output_array[j] == 1:
                 prob += 1
         probabilities.append(prob)
-        #print(all_words)
-    #print(probabilities)
+
     final = -1
+    finalValue = -1
     for i in range(len(probabilities)):
-        if probabilities[i] > final:
+        if probabilities[i] >= finalValue:
+            finalValue = probabilities[i]
             final = i
-    #print(final)
+
     if final == -1:
         final = 0
 
     rand = random.uniform(0, 1)
     rand = np.floor(rand * len(intents['intents'][final]['responses']))
-    print(rand)
-    #print(intents['intents'][final]['responses'][int(rand)])
+
+
     return intents['intents'][final]['responses'][int(rand)], intents['intents'][final]['tag']
 
 
 
+def respondB(inp, intents):
+
+    probabilities = []
+    print(inp)
+    for i in range(len(intents['intents'])):
 
 
+        phrases = []
+        prob = -1
+        for j in range(len(intents['intents'][i]['patterns'])):
+            processed_phrase = process(intents['intents'][i]['patterns'][j])
+            phrases.append(processed_phrase)
 
-#print(output)
+        print('INTENT', intents['intents'][i]['tag'])
 
+        for j in range(len(phrases)):
+            similarity = 0
+            tot = 1
+
+            for k in range(len(phrases[j])):
+                if phrases[j][k] in inp:
+                    similarity += 1
+                tot = len(inp) + len(phrases[j])
+                tot = tot / 2
+
+            if similarity/tot > prob:
+                prob = similarity/tot
+        probabilities.append(prob)
+    print(probabilities)
+    final = -1
+    finalValue = -1
+    for i in range(len(probabilities)):
+        if probabilities[i] >= finalValue:
+            finalValue = probabilities[i]
+            final = i
+
+    if final == -1:
+        final = 0
+
+    rand = random.uniform(0, 1)
+    rand = np.floor(rand * len(intents['intents'][final]['responses']))
+
+    return intents['intents'][final]['responses'][int(rand)], intents['intents'][final]['tag']
 

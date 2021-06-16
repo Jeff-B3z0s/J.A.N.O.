@@ -6,7 +6,9 @@
         "How are you doing?",
         "How are you?",
         "how is it going?",
-        "how's it going?"
+        "how's it going?",
+        "how you doing?",
+        "Are you doing well?"
 
       ],
       "responses": [
@@ -23,7 +25,10 @@
         "Hello",
         "Good day",
         "Yo!",
-        "what's up?"
+        "what's up?",
+        "Hello there!",
+        "Hi there!",
+        "Good morning"
       ],
       "responses": [
         "Hey :-)",
@@ -35,7 +40,7 @@
     },
     {
       "tag": "goodbye",
-      "patterns": ["Bye", "See you later", "Goodbye", "Bye bye!"],
+      "patterns": ["Bye", "See you later", "Goodbye", "Bye bye!", "Adios!", "Okay, bye!"],
       "responses": [
         "See you later, thanks for visiting",
         "Have a nice day",
@@ -44,7 +49,7 @@
     },
     {
       "tag": "thanks",
-      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "patterns": ["Thanks", "Thank you", "Thank's a lot!", "Thanks so much!"],
       "responses": ["Happy to help!", "Any time!", "My pleasure"]
     },
     {
@@ -67,13 +72,18 @@
         "What are you for?",
         "What is your function?",
         "What do you do?",
-        "Who are you?"
+        "Who are you?",
+        "Please help me.",
+        "Help me",
+        "Help please",
+        "Tell me your purpose"
 
       ],
       "responses": [
-        "I'm your virtual assistant, Jano, that is here to assist you with any thing you like so long as I have been programmed to do so.",
+        "I'm your virtual assistant, Jano, that is here to assist.",
         "I'm a program made to help you with a few things."
       ]
     }
   ]
 }
+

@@ -32,6 +32,7 @@ cursor = "pointer"
 shamrockOn = False
 
 nextChannel = "0"
+nextChannel = "0"
 
 # MENU LOOP ---------------------------------------------------#
 def menu(screen):
@@ -110,7 +111,7 @@ def menu(screen):
             # MOUES CLICKING FUNCTIONS
 
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-
+                page = "0"
 
                 for btn in var.buttons:
                     btnClicked = btn.click()
@@ -143,7 +144,7 @@ def menu(screen):
                         shamrockOn = False
                     var.textBox.circleColor = var.textBox.circleDefault
                 if shamrockOn == True:
-                    var.textBox.click(pg.mouse.get_pos())
+                    var.textBox.click(pg.mouse.get_pos(), var.screen)
 
 
             elif event.type == VIDEORESIZE:

@@ -1,3 +1,5 @@
+# VARIABLES SECTION
+
 import pygame as pg
 import button
 import shamrockMod

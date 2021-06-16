@@ -76,7 +76,7 @@ class textBox():
     def update(self, screen):
         self.draw(screen)
 
-    def click(self, mousePos):
+    def click(self, mousePos, screen):
         if self.circle.collidepoint(mousePos):
             self.circleColor = (255, 50, 255)
             self.update(self.screen)
@@ -87,17 +87,22 @@ class textBox():
             self.display = self.font.render(self.text, True, self.tColor)
 
 
-
+            input = input.lower()
             if input == "hello":
                 self.circleColor = (255, 100, 100)
                 pg.display.update()
                 speak("Hi!")
                 self.text = "Hi!"
                 self.display = self.font.render(self.text, True, self.tColor)
-            elif input == "commands":
-                Textbot.Assistant()
+            elif input == "commands" or input == "command" or input == "go to commands":
+                speak("Going to commands.")
+                Textbot.Assistant(screen)
+            elif input == "text bots" or input == "go to text bot" or input == "go to texting":
+                speak("Going to the textbot.")
+                Textbot.Textbot(screen)
             else:
                 speak(input)
+                print(input)
                 inp = trainingModel.process(input)
                 output, tag = trainingModel.respond(inp, trainingModel.intents)
                 speak(tag)
